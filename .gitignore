@@ -1,0 +1,15 @@
+# Hasil kompilasi
+build/
+
+# File objek
+*.o
+
+# Executable
+*.exe
+*.out
+alprog1
+
+# Folder IDE dan file konfigurasi
+.vscode/
+.idea/
+.DS_Store
