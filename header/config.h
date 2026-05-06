@@ -3,12 +3,6 @@
 
 /* ============================================================
  * config.h — Konstanta global & tipe dasar
- *
- * KENAPA file ini ada?
- * Semua ADT dan fitur butuh konstanta yang sama (ukuran cache,
- * ukuran tab, dll). Daripada hardcode di mana-mana, kita
- * pusatkan di sini. Kalau mau ubah kapasitas, cukup ubah satu
- * tempat.
  * ============================================================ */
 
 /* --- Kapasitas Sistem --- */
