@@ -62,241 +62,21 @@ void browserDisplayPage(Browser *b, const char *url) {
 /* ============================================================
  * F01 - Discover
  * ============================================================ */
-void featureDiscover(Browser *b) {
-    if (b->db.count == 0) {
-        printf("Database kosong, tidak ada halaman untuk ditampilkan.\n");
-        return;
-    }
 
-    int total   = b->db.count;
-    int tampil  = (total < 5) ? total : 5;
-
-    /* Tandai indeks yang sudah dipilih supaya tidak duplikat */
-    int chosen[5];
-    int chosenCount = 0;
-    int i, j;
-
-    printf("Berikut adalah beberapa halaman yang mungkin menarik untukmu:\n");
-
-    while (chosenCount < tampil) {
-        int idx = (int)(browserLCGNext(b) % (unsigned long)total);
-
-        /* Cek duplikat */
-        bool duplicate = FALSE;
-        for (j = 0; j < chosenCount; j++) {
-            if (chosen[j] == idx) { duplicate = TRUE; break; }
-        }
-        if (duplicate) continue;
-
-        chosen[chosenCount++] = idx;
-        printf("  - %s\n", b->db.pages[idx].url);
-    }
-
-    /* Kalau total < 5, info-kan */
-    if (total < 5) {
-        printf("(Hanya %d halaman tersedia di database)\n", total);
-    }
-    (void)i;
-}
 
 /* ============================================================
  * F02 - Search
  * ============================================================ */
-void featureSearch(Browser *b, const char *query) {
-    WebPage *results[MAX_WEB_PAGES];
-    int n = setSearchPrefix(&b->db, query, results, MAX_WEB_PAGES);
 
-    printf("Search result(s) untuk \"%s\":\n", query);
-    if (n == 0) {
-        printf("  Tidak Ditemukan\n");
-        return;
-    }
-    int i;
-    for (i = 0; i < n; i++) {
-        printf("  - %s\n", results[i]->url);
-    }
-}
 
 /* ============================================================
  * F03 - Open Page
  * ============================================================ */
-void featureOpenPage(Browser *b, const char *url) {
-    /* Cek dulu apakah halaman ada */
-    WebPage *page = setSearch(&b->db, url);
-    if (page == NULL) {
-        const char *cached = mapGet(&b->cache, url);
-        if (cached == NULL) {
-            printf("404 Not Found! Halaman tidak ditemukan.\n");
-            return;
-        }
-    }
-
-    /* Push ke stack navigasi tab aktif */
-    Tab *cur = listGetCurrentTab(&b->tabs);
-    stackPush(&cur->navStack, url);
-
-    /* Tampilkan halaman */
-    browserDisplayPage(b, url);
-}
 
 /* ============================================================
  * F05 - Page Management
  * ============================================================ */
-void featureAddPage(Browser *b, const char *url) {
-    /* Cek duplikat */
-    if (setSearch(&b->db, url) != NULL) {
-        printf("Sudah terdapat halaman dengan url %s. "
-               "Gunakan url lain yang belum terdaftar!\n", url);
-        return;
-    }
 
-    /* Input konten */
-    char content[MAX_CONTENT_LENGTH] = "";
-    char line[512];
-    printf("Masukkan konten (Akhiri dengan '.' di baris baru):\n");
-
-    while (1) {
-        printf(">>> ");
-        if (fgets(line, sizeof(line), stdin) == NULL) break;
-        /* Hapus newline di akhir */
-        line[strcspn(line, "\n")] = '\0';
-
-        if (strcmp(line, ".") == 0) break;
-
-        /* Tambah ke content dengan \n pemisah */
-        if (strlen(content) > 0)
-            strncat(content, "\n", MAX_CONTENT_LENGTH - strlen(content) - 1);
-        strncat(content, line, MAX_CONTENT_LENGTH - strlen(content) - 1);
-    }
-
-    /* Insert ke database */
-    if (!setInsert(&b->db, url, content)) {
-        printf("Gagal menambahkan halaman.\n");
-        return;
-    }
-
-    /* Tambah node ke graph */
-    WebPage *newPage = setSearch(&b->db, url);
-    if (newPage != NULL) graphAddNode(&b->webGraph, newPage->id);
-
-    /* Input linked pages */
-    printf("Masukkan linked pages (Ketik 'DONE' jika sudah selesai):\n");
-    while (1) {
-        printf(">>> ");
-        if (fgets(line, sizeof(line), stdin) == NULL) break;
-        line[strcspn(line, "\n")] = '\0';
-
-        if (strcmp(line, "DONE") == 0) break;
-
-        WebPage *target = setSearch(&b->db, line);
-        if (target == NULL) {
-            printf("URL tidak ditemukan!\n");
-        } else {
-            graphAddEdge(&b->webGraph, newPage->id, target->id, line);
-        }
-    }
-
-    printf("Halaman %s berhasil ditambahkan!\n", url);
-}
-
-void featureEditPage(Browser *b, const char *url) {
-    WebPage *page = setSearch(&b->db, url);
-    if (page == NULL) {
-        printf("Tidak ada halaman dengan url %s!\n", url);
-        return;
-    }
-
-    /* Cek cache */
-    if (mapGet(&b->cache, url) != NULL) {
-        printf("[Status: Cache-Hit] Mengambil data dari cache...\n");
-    } else {
-        printf("[Status: Cache-Miss] Mengambil data dari database...\n");
-    }
-
-    /* Tampilkan konten saat ini */
-    printf("Konten saat ini:\n%s\n\n", page->content);
-
-    /* Tampilkan linked pages saat ini */
-    printf("Linked pages saat ini:\n");
-    graphPrintNeighbors(&b->webGraph, page->id);
-
-    /* Input konten baru */
-    char newContent[MAX_CONTENT_LENGTH] = "";
-    char line[512];
-    printf("\nMasukkan konten baru (akhiri dengan '.' atau ketik '.' saja jika tidak ingin mengubah):\n");
-
-    bool contentChanged = FALSE;
-    while (1) {
-        printf(">>> ");
-        if (fgets(line, sizeof(line), stdin) == NULL) break;
-        line[strcspn(line, "\n")] = '\0';
-
-        if (strcmp(line, ".") == 0) break;
-        contentChanged = TRUE;
-
-        if (strlen(newContent) > 0)
-            strncat(newContent, "\n", MAX_CONTENT_LENGTH - strlen(newContent) - 1);
-        strncat(newContent, line, MAX_CONTENT_LENGTH - strlen(newContent) - 1);
-    }
-
-    if (contentChanged) {
-        setUpdate(&b->db, url, newContent);
-        mapRemove(&b->cache, url);  /* Invalidate cache */
-        mapPut(&b->cache, url, newContent);
-    }
-
-    /* Input linked pages baru */
-    printf("Masukkan linked pages baru (Ketik 'DONE' jika selesai, 'SKIP' untuk tidak ubah):\n");
-    printf(">>> ");
-    if (fgets(line, sizeof(line), stdin) != NULL) {
-        line[strcspn(line, "\n")] = '\0';
-
-        if (strcmp(line, "SKIP") != 0) {
-            /* Reset linked pages lama */
-            LinkedList *neighbors = graphGetNeighbors(&b->webGraph, page->id);
-            if (neighbors != NULL) llClear(neighbors);
-
-            /* Tambah yang baru */
-            while (strcmp(line, "DONE") != 0) {
-                WebPage *target = setSearch(&b->db, line);
-                if (target == NULL) {
-                    printf("URL tidak ditemukan!\n");
-                } else {
-                    graphAddEdge(&b->webGraph, page->id, target->id, line);
-                }
-                printf(">>> ");
-                if (fgets(line, sizeof(line), stdin) == NULL) break;
-                line[strcspn(line, "\n")] = '\0';
-            }
-        }
-    }
-
-    printf("Halaman %s berhasil diperbarui!\n", url);
-}
-
-void featureDeletePage(Browser *b, const char *url) {
-    WebPage *page = setSearch(&b->db, url);
-    if (page == NULL) {
-        printf("Tidak ada halaman dengan url %s!\n", url);
-        return;
-    }
-
-    int pageId = page->id;
-
-    /* Hapus dari cache */
-    if (mapRemove(&b->cache, url)) {
-        printf("[Status: Cache-Hit] URL ditemukan di cache dan telah dibersihkan.\n");
-    }
-
-    /* Hapus dari graph (node + semua edge terkait) */
-    printf("Membersihkan relasi linked pages...\n");
-    graphRemoveNode(&b->webGraph, pageId);
-
-    /* Hapus dari database */
-    setDelete(&b->db, url);
-
-    printf("Halaman %s berhasil dihapus!\n", url);
-}
 
 /* ============================================================
  * F06 - Tabs
@@ -444,33 +224,8 @@ void featureOpenLinked(Browser *b, int index) {
 /* ============================================================
  * F10 - Download Manager
  * ============================================================ */
-void featureDownload(Browser *b, const char *url) {
-    if (queueIsFull(&b->dlQueue)) {
-        printf("Download tidak diterima, antrian sudah penuh.\n");
-        return;
-    }
 
-    int ticks = queueCalcTicks(url);
-    queueEnqueue(&b->dlQueue, url);
-
-    if (b->dlQueue.count == 1) {
-        printf("Download %s (%d ticks)\n", url, ticks);
-    } else {
-        printf("Download %s (%d ticks) -> antrian no %d\n",
-               url, ticks, b->dlQueue.count);
-    }
-}
-
-void featureTick(Browser *b) {
-    queueTick(&b->dlQueue);
-}
 
 /* ============================================================
  * F11 - Exit
  * ============================================================ */
-void featureExit(Browser *b) {
-    printf("\nTerima kasih telah menggunakan NangorBrowser!\n");
-    printf("Sampai jumpa di Nangor Falls...\n");
-    printf("(Semoga kamu tidak ketemu Bill Cipher di jalan)\n");
-    (void)b;
-}
