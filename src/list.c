@@ -8,10 +8,8 @@
 
 /* Helper: inisialisasi satu tab dengan nama dan counter yang diberikan */
 static void initTab(Tab *t, int counter) {
-    /* Format nama: "TAB" + angka, max 15 karakter */
     snprintf(t->name, sizeof(t->name), "TAB%d", counter);
     stackInit(&t->navStack);
-    t->session_token = 0xBEEF;
 }
 
 void listInit(List *l) {

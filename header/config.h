@@ -16,14 +16,13 @@
 #define MAX_URL_LENGTH      256     /* Panjang max sebuah URL */
 #define MAX_CONTENT_LENGTH  4096    /* Panjang max konten halaman */
 
-/* --- LCG (Linear Congruential Generator) untuk F01-Discover ---
- * Parameter standar dari spesifikasi tugas.
- * LCG: X_(n+1) = (a * X_n + c) mod m
+/* --- Random number generator untuk F01-Discover ---
+ * Rumus: X_(n+1) = (a * X_n + c) mod m
  */
-#define LCG_MULTIPLIER      1103515245
-#define LCG_INCREMENT       12345
-#define LCG_MODULUS         2147483648U   /* 2^31, pakai unsigned */
-#define LCG_SEED_INITIAL    73939133
+#define RNG_A       1103515245
+#define RNG_C       12345
+#define RNG_M       2147483648U   /* 2^31 */
+#define RNG_SEED    73939133
 
 /* --- Boolean sederhana (C99 punya _Bool, tapi ini lebih eksplisit) --- */
 typedef int bool;

@@ -236,8 +236,6 @@ void testList() {
     check("Init: 1 tab (TAB1)", l.count == 1);
     check("Current tab = TAB1",
           strcmp(listGetCurrentTab(&l)->name, "TAB1") == 0);
-    check("Session token = 0xBEEF",
-          listGetCurrentTab(&l)->session_token == 0xBEEF);
 
     /* Tambah tab */
     listAddTab(&l);

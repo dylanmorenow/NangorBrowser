@@ -18,7 +18,6 @@
  * Setiap Tab punya:
  * - name          : "TAB1", "TAB2", dst (format auto-increment)
  * - navStack      : Stack navigasi back/forward milik tab ini
- * - session_token : Diinisialisasi 0xBEEF (dari "spesifikasi" Extras)
  *
  * COUNTER tab (tabCounter) terus naik meskipun tab di-close,
  * sehingga tab baru selalu punya nama unik (TAB4 setelah TAB3
@@ -32,7 +31,6 @@
 typedef struct {
     char  name[16];         /* "TAB1", "TAB2", dst */
     Stack navStack;         /* History navigasi tab ini */
-    int   session_token;    /* Inisialisasi = 0xBEEF */
 } Tab;
 
 /* List of Tabs */
