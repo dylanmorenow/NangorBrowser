@@ -1,11 +1,13 @@
 #include "feature/f_history.h"
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 /* ============================================================
- * f_history.c — B02 Global History (Priority Queue)
+ * f_history.c - B02 Global History (Priority Queue)
  *
  * Array-based priority queue, sorted descending by accessTime.
+ * Waktu akses menggunakan time() dari time.h.
  * ============================================================ */
 
 void historyInit(GlobalHistory *gh) {
@@ -14,11 +16,10 @@ void historyInit(GlobalHistory *gh) {
         gh->entries[i].isOccupied = 0;
         gh->entries[i].accessTime = 0;
     }
-    gh->count       = 0;
-    gh->timeCounter = 0;
+    gh->count = 0;
 }
 
-/* Helper: cari URL di history. Return indeks, -1 jika tidak ada. */
+/* Helper: cari URL di history */
 static int findByUrl(GlobalHistory *gh, const char *url) {
     int i;
     for (i = 0; i < gh->count; i++) {
@@ -45,20 +46,20 @@ static void sortHistory(GlobalHistory *gh) {
 }
 
 void historyRecord(GlobalHistory *gh, const char *url) {
-    gh->timeCounter++;
+    long now = (long)time(NULL);
 
     /* Cek apakah URL sudah ada di history */
     int existing = findByUrl(gh, url);
     if (existing != -1) {
         /* Update waktu akses saja */
-        gh->entries[existing].accessTime = gh->timeCounter;
+        gh->entries[existing].accessTime = now;
         sortHistory(gh);
         return;
     }
 
     /* URL belum ada: tambah baru */
     if (gh->count >= HISTORY_MAX_AMOUNT) {
-        /* History penuh: hapus yang paling lama (terakhir setelah sort) */
+        /* History penuh: hapus yang paling lama (terakhir) */
         gh->entries[gh->count - 1].isOccupied = 0;
         gh->count--;
     }
@@ -66,7 +67,7 @@ void historyRecord(GlobalHistory *gh, const char *url) {
     /* Tambahkan di akhir, lalu sort */
     strncpy(gh->entries[gh->count].url, url, MAX_URL_LENGTH - 1);
     gh->entries[gh->count].url[MAX_URL_LENGTH - 1] = '\0';
-    gh->entries[gh->count].accessTime = gh->timeCounter;
+    gh->entries[gh->count].accessTime = now;
     gh->entries[gh->count].isOccupied = 1;
     gh->count++;
 
@@ -83,8 +84,14 @@ void featureViewHistory(GlobalHistory *gh) {
     int i;
     for (i = 0; i < gh->count; i++) {
         if (gh->entries[i].isOccupied) {
-            printf("  [%d] %s (waktu: %d)\n",
-                   i + 1, gh->entries[i].url, gh->entries[i].accessTime);
+            /* Format waktu sebagai HH:MM */
+            time_t t = (time_t)gh->entries[i].accessTime;
+            struct tm *tm_info = localtime(&t);
+            printf("  [%d] %s (%02d:%02d)\n",
+                   i + 1,
+                   gh->entries[i].url,
+                   tm_info->tm_hour,
+                   tm_info->tm_min);
         }
     }
 }

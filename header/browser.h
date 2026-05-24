@@ -11,14 +11,13 @@
 /* B02: Global History */
 typedef struct {
     char url[MAX_URL_LENGTH];
-    int  accessTime;
+    long accessTime;    /* waktu akses (dari time()) */
     int  isOccupied;
 } HistoryEntry;
 
 typedef struct {
     HistoryEntry entries[HISTORY_MAX_AMOUNT];
     int count;
-    int timeCounter;
 } GlobalHistory;
 
 /* B04: Bookmark Manager */
