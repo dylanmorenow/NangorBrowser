@@ -1,20 +1,6 @@
 #ifndef BROWSER_H
 #define BROWSER_H
 
-/* ============================================================
- * browser.h — State global browser
- *
- * Satu struct Browser menyimpan SEMUA state program:
- * - Database halaman (Set)
- * - Cache (Map)
- * - Web graph (Graph)
- * - Tabs (List)
- * - Download queue (Queue)
- * - Seed RNG untuk discover
- * - Global History (B02)
- * - Bookmark Manager (B04)
- * ============================================================ */
-
 #include "config.h"
 #include "set.h"
 #include "map.h"
@@ -22,10 +8,10 @@
 #include "list.h"
 #include "queue.h"
 
-/* ---- B02: Global History (priority queue) ---- */
+/* B02: Global History */
 typedef struct {
     char url[MAX_URL_LENGTH];
-    int  accessTime;    /* Counter waktu akses (semakin besar = lebih baru) */
+    int  accessTime;
     int  isOccupied;
 } HistoryEntry;
 
@@ -35,7 +21,7 @@ typedef struct {
     int timeCounter;
 } GlobalHistory;
 
-/* ---- B04: Bookmark Manager ---- */
+/* B04: Bookmark Manager */
 #define BOOKMARK_MAX 50
 
 typedef struct {
@@ -49,26 +35,21 @@ typedef struct {
     int count;
 } BookmarkManager;
 
-/* ---- Browser struct utama ---- */
+/* Browser - struct utama menyimpan semua state */
 typedef struct {
-    Set    db;          /* Database semua halaman web */
-    Map    cache;       /* Cache URL -> konten */
-    Graph  webGraph;    /* Web graph linked pages */
-    List   tabs;        /* Daftar tab */
-    Queue  dlQueue;     /* Antrian download */
-    unsigned long randSeed;    /* Seed RNG untuk discover */
-    GlobalHistory  history;   /* B02: Global History */
-    BookmarkManager bookmarks; /* B04: Bookmark Manager */
+    Set    db;
+    Map    cache;
+    Graph  webGraph;
+    List   tabs;
+    Queue  dlQueue;
+    unsigned long randSeed;
+    GlobalHistory  history;
+    BookmarkManager bookmarks;
 } Browser;
 
-/* Inisialisasi semua komponen browser + load hardcoded data. */
 void browserInit(Browser *b);
-
-/* Helper: tampilkan halaman (konten + linked pages).
- * Dipanggil oleh open, back, forward, openlinked. */
-void browserDisplayPage(Browser *b, const char *url);
-
-/* Hasilkan angka acak berikutnya (untuk discover) */
 unsigned long browserRandNext(Browser *b);
 
-#endif /* BROWSER_H */
+/* browserDisplayPage ada di f04_caching.h */
+
+#endif
