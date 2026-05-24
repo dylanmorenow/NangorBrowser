@@ -3,10 +3,11 @@ TARGET    := $(BUILD_DIR)/alprog1
 CC        ?= gcc
 CFLAGS    ?= -std=c99 -Wall -Wextra -Wpedantic -Iheader
 
-# Semua .c di src/ KECUALI src/test/
-SRC := $(shell find src -maxdepth 1 -name "*.c")
+# Semua .c di src/ (top-level) + src/feature/
+SRC := $(shell find src -maxdepth 1 -name "*.c") \
+       $(shell find src/feature -name "*.c" 2>/dev/null)
 
-# Semua .c untuk test (src/test/ + semua ADT, tanpa main.c)
+# Test: semua kecuali main.c
 TEST_SRC := $(shell find src/test -name "*.c") \
             $(filter-out src/main.c, $(SRC))
 
