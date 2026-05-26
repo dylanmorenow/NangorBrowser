@@ -2,12 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-/* ============================================================
- * f04_caching.c - F04 Caching
- *
- * Cek cache dulu sebelum akses database. Jika Cache-Miss,
- * ambil dari database lalu simpan ke cache (FIFO eviction).
- * ============================================================ */
+
 
 void browserDisplayPage(Browser *b, const char *url) {
     const char *content = mapGet(&b->cache, url);

@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <string.h>
 
-/* ============================================================
- * f_bookmark.c — B04 Bookmark Manager
- * ============================================================ */
 
 void bookmarkInit(BookmarkManager *bm) {
     int i;

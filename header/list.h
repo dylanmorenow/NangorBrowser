@@ -1,29 +1,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-/* ============================================================
- * list.h — ADT List untuk manajemen Tab (F06)
- *
- * KENAPA List?
- * Tab adalah kumpulan yang terurut by posisi (bukan by nilai).
- * Pengguna bisa prevtab/nexttab berdasarkan posisi relatif.
- * List (ordered sequence) adalah abstraksi yang tepat.
- *
- * IMPLEMENTASI: Array of Tab
- * - Ukuran max: TABS_MAX_AMOUNT (dari config.h)
- * - Insert: selalu di akhir (newtab)
- * - Delete: tab aktif saja (closetab), elemen setelahnya digeser kiri
- * - Access: by index (prevtab/nexttab)
- *
- * Setiap Tab punya:
- * - name          : "TAB1", "TAB2", dst (format auto-increment)
- * - navStack      : Stack navigasi back/forward milik tab ini
- *
- * COUNTER tab (tabCounter) terus naik meskipun tab di-close,
- * sehingga tab baru selalu punya nama unik (TAB4 setelah TAB3
- * di-close, bukan TAB3 lagi).
- * ============================================================ */
-
 #include "config.h"
 #include "stack.h"
 
@@ -77,4 +54,4 @@ Tab* listGetTab(List *l, int index);
 /* Print daftar semua tab + tandai current (untuk checktab). */
 void listPrintTabs(List *l);
 
-#endif /* LIST_H */
+#endif 

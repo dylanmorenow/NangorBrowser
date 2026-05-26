@@ -1,12 +1,7 @@
 #include "data.h"
 #include <stdio.h>
 
-/* ============================================================
- * data.c — Hardcoded database halaman web (STI)
- *
- * Semua \n dalam konten akan ditampilkan sebagai newline asli
- * saat di-print (sesuai spesifikasi format CSV).
- * ============================================================ */
+
 
 /* Helper: tambah halaman + node graph sekaligus */
 static void addPage(Set *db, Graph *g,
@@ -28,10 +23,6 @@ static void addLink(Set *db, Graph *g,
 
 void dataInit(Set *db, Graph *webGraph) {
 
-    /* ======================================================
-     * HALAMAN WEB
-     * Format konten: gunakan \n untuk newline
-     * ====================================================== */
 
     addPage(db, webGraph,
         "mysteryshack.com",

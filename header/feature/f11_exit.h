@@ -3,7 +3,6 @@
 
 #include "browser.h"
 
-/* F11 - Exit */
 void featureExit(Browser *b);
 
-#endif /* F11_EXIT_H */
+#endif 

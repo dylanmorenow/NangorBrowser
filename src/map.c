@@ -2,9 +2,6 @@
 #include <string.h>
 #include <stdio.h>
 
-/* ============================================================
- * map.c — Implementasi ADT Map (cache FIFO)
- * ============================================================ */
 
 void mapInit(Map *m) {
     int i;
@@ -115,7 +112,6 @@ void mapPrint(Map *m) {
         return;
     }
 
-    /* Print dalam urutan insert (FIFO order) agar informatif */
     int i;
     printf("  Cache (%d/%d):\n", m->count, CACHE_MAX_AMOUNT);
     for (i = 0; i < CACHE_MAX_AMOUNT; i++) {

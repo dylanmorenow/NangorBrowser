@@ -3,8 +3,7 @@
 
 #include "browser.h"
 
-/* F10 - Download Manager */
 void featureDownload(Browser *b, const char *url);
 void featureTick(Browser *b);
 
-#endif /* F10_DOWNLOAD_H */
+#endif 

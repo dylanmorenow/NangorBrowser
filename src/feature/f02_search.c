@@ -2,14 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-/* ============================================================
- * f02_search.c — F02 Search + B03 Advanced Search
- *
- * F02 dasar: prefix match pada URL
- * B03 bonus: case-insensitive substring match pada URL DAN konten
- *
- * Implementasi: B03 menggantikan F02 (superset).
- * ============================================================ */
+
 
 /* Helper: konversi karakter ke lowercase */
 static char toLower(char c) {

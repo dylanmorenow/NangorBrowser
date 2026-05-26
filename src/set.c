@@ -2,9 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 
-/* ============================================================
- * set.c — Implementasi ADT Set (sorted array + binary search)
- * ============================================================ */
+
 
 void setInit(Set *s) {
     s->count  = 0;

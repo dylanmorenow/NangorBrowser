@@ -1,9 +1,6 @@
 #include "feature/f06_tabs.h"
 #include <stdio.h>
 
-/* ============================================================
- * f06_tabs.c — F06 Tabs
- * ============================================================ */
 
 void featureNewTab(Browser *b) {
     if (listIsFull(&b->tabs)) {

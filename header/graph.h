@@ -1,29 +1,6 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-/* ============================================================
- * graph.h — ADT Graph untuk Web Graph (F09 / S01)
- *
- * KENAPA Graph?
- * Relasi antar halaman web adalah directed graph:
- * - Node = halaman web (diidentifikasi oleh ID)
- * - Edge = ada link dari halaman A ke halaman B
- *
- * SPESIFIKASI STI (S01): Wajib pakai ADT Graph, bukan matrix.
- *
- * IMPLEMENTASI: Adjacency List
- * Setiap node punya LinkedList yang berisi daftar tetangganya.
- * nodes[] diindex langsung oleh pageId (1-based, jadi nodes[id]).
- *
- * KENAPA adjacency list lebih baik dari matrix untuk kasus ini?
- * - Halaman web = sparse graph (satu halaman punya sedikit link)
- * - Matrix: O(n²) memori untuk graph sparse → boros
- * - Adjacency list: O(n + e) memori, jauh lebih efisien
- * - Traversal tetangga: O(degree) bukan O(n)
- *
- * nodes[0] tidak dipakai (ID mulai dari 1).
- * Kapasitas = MAX_WEB_PAGES + 1 (slot 0 tidak dipakai).
- * ============================================================ */
 
 #include "config.h"
 #include "linked_list.h"
@@ -36,8 +13,6 @@ typedef struct {
     int        nodeCount;
     int        edgeCount;
 } Graph;
-
-/* --- Operasi Graph --- */
 
 /* Inisialisasi graph kosong. */
 void graphInit(Graph *g);
@@ -78,4 +53,4 @@ void graphPrintAll(Graph *g);
  * Diperlukan saat delete_page: bersihkan semua referensi ke halaman tersebut. */
 void graphRemoveAllEdgesTo(Graph *g, int targetId);
 
-#endif /* GRAPH_H */
+#endif 

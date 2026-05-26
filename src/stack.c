@@ -2,9 +2,6 @@
 #include <string.h>
 #include <stdio.h>
 
-/* ============================================================
- * stack.c — Implementasi ADT Stack (navigasi tab)
- * ============================================================ */
 
 void stackInit(Stack *s) {
     s->size    = 0;

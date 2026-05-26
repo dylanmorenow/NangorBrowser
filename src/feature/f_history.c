@@ -3,12 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-/* ============================================================
- * f_history.c - B02 Global History (Priority Queue)
- *
- * Array-based priority queue, sorted descending by accessTime.
- * Waktu akses menggunakan time() dari time.h.
- * ============================================================ */
+
 
 void historyInit(GlobalHistory *gh) {
     int i;

@@ -3,9 +3,6 @@
 #include <string.h>
 #include <stdio.h>
 
-/* ============================================================
- * linked_list.c — Implementasi ADT Singly Linked List
- * ============================================================ */
 
 void llInit(LinkedList *ll) {
     ll->head = NULL;

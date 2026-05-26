@@ -1,32 +1,6 @@
 #ifndef STACK_H
 #define STACK_H
 
-/* ============================================================
- * stack.h — ADT Stack untuk navigasi back/forward per tab
- *
- * KENAPA Stack?
- * Navigasi browser adalah use-case klasik stack: buka halaman
- * = push, back = pop. Tapi F08 perlu "lihat semua history"
- * dan "lompat N langkah", jadi kita pakai array + current index
- * (bukan stack murni yang hanya punya top).
- *
- * STRUKTUR:
- * urls[]       = array semua URL yang pernah dibuka di tab ini
- * size         = total URL tersimpan (termasuk yang "di depan"
- *                setelah back)
- * current      = indeks halaman yang sedang aktif
- *
- * Contoh: buka A, B, C, lalu back 1x
- *   urls    = ["A", "B", "C"]
- *   size    = 3
- *   current = 1   (sedang di B)
- *   → forward tersedia ke C, back tersedia ke A
- *
- * Kalau dari posisi current buka halaman baru D:
- *   urls    = ["A", "B", "D"]   (C dihapus/ditimpa)
- *   size    = 3
- *   current = 2
- * ============================================================ */
 
 #include "config.h"
 
@@ -83,4 +57,4 @@ int stackForwardAvailable(Stack *s);
  * Menandai posisi current dengan "<- YOU ARE HERE". */
 void stackPrintHistory(Stack *s);
 
-#endif /* STACK_H */
+#endif 

@@ -4,9 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-/* ============================================================
- * f03_open.c — F03 Open Page + B02 History recording
- * ============================================================ */
+
 
 void featureOpenPage(Browser *b, const char *url) {
     /* Cek apakah halaman ada di database */

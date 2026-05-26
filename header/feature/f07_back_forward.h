@@ -3,7 +3,6 @@
 
 #include "browser.h"
 
-/* F07 - Back / Forward */
 void featureBack(Browser *b, int n);
 void featureForward(Browser *b, int n);
 

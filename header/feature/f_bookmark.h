@@ -1,11 +1,6 @@
 #ifndef F_BOOKMARK_H
 #define F_BOOKMARK_H
 
-/* ============================================================
- * f_bookmark.h — B04 Bookmark Manager
- *
- * Struct BookmarkManager sudah didefinisikan di browser.h.
- * ============================================================ */
 
 #include "browser.h"
 

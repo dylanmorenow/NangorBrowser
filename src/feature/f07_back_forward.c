@@ -3,9 +3,6 @@
 #include "feature/f_history.h"
 #include <stdio.h>
 
-/* ============================================================
- * f07_back_forward.c - F07 Back / Forward
- * ============================================================ */
 
 void featureBack(Browser *b, int n) {
     Tab *cur = listGetCurrentTab(&b->tabs);

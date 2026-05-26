@@ -2,11 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-/* ============================================================
- * f10_download.c — F10 Download Manager
- *
- * S02 (STI): Download selesai -> cukup print pesan.
- * ============================================================ */
 
 void featureDownload(Browser *b, const char *url) {
     /* Cek apakah URL ada di database */

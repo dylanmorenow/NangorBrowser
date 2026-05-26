@@ -1,12 +1,6 @@
 #include "feature/f01_discover.h"
 #include <stdio.h>
 
-/* ============================================================
- * f01_discover.c — F01 Discover
- *
- * Tampilkan 5 URL acak dari database.
- * Jika jumlah halaman < 5, tampilkan semua.
- * ============================================================ */
 
 void featureDiscover(Browser *b) {
     int total = b->db.count;

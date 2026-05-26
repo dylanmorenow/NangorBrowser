@@ -1,21 +1,6 @@
 #include "validator.h"
 #include <string.h>
 
-/* ============================================================
- * validator.c — E01 & E02 Validasi Input
- *
- * E01: Validasi format URL secara manual tanpa regex library.
- *      Target regex: ^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z]{2,})+$
- *
- *      Artinya:
- *      - Satu atau lebih label dipisahkan oleh '.'
- *      - Label pertama (domain): 1-63 karakter [A-Za-z0-9-],
- *        tidak boleh diawali atau diakhiri dengan '-'
- *      - Label selanjutnya (TLD/extension): minimal 2 karakter [A-Za-z]
- *      - Harus ada minimal 1 extension (bagian setelah '.')
- *
- * E02: Bilangan bulat positif 1-999999, max 6 digit
- * ============================================================ */
 
 /* Helper: cek apakah karakter adalah huruf */
 static int isAlpha(char c) {

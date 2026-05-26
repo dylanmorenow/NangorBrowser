@@ -5,9 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-/* ============================================================
- * browser.c - Browser core: init + RNG
- * ============================================================ */
+
 
 unsigned long browserRandNext(Browser *b) {
     b->randSeed = (RNG_A * b->randSeed + RNG_C) % RNG_M;

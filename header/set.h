@@ -1,27 +1,6 @@
 #ifndef SET_H
 #define SET_H
 
-/* ============================================================
- * set.h — ADT Set untuk database halaman web (F03)
- *
- * KENAPA Set?
- * Database halaman web adalah kumpulan WebPage yang unik
- * (tidak boleh URL duplikat). Set adalah abstraksi yang tepat:
- * - Setiap elemen unik (diidentifikasi oleh URL)
- * - Operasi: contains, insert, delete
- *
- * IMPLEMENTASI: Sorted Array + Binary Search
- * Array di-maintain selalu terurut berdasarkan URL (strcmp order).
- * Ini memungkinkan binary search O(log n) untuk lookup.
- *
- * KENAPA binary search wajib?
- * Spesifikasi STI mewajibkan binary search di Array Search/Sort/Filter.
- * Lookup halaman (F03) adalah operasi paling sering → harus efisien.
- *
- * TRADEOFF:
- * - Insert: O(n) karena harus geser elemen → tapi insert jarang
- * - Search: O(log n) → ini yang sering dipanggil, jadi worthit
- * ============================================================ */
 
 #include "config.h"
 
@@ -72,4 +51,4 @@ void setPrintAll(Set *s);
  * Return indeks jika ditemukan, -1 jika tidak. */
 int setBinarySearch(Set *s, const char *url);
 
-#endif /* SET_H */
+#endif 

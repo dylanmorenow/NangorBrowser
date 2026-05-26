@@ -2,9 +2,6 @@
 #include <string.h>
 #include <stdio.h>
 
-/* ============================================================
- * queue.c — Implementasi ADT Queue (circular array)
- * ============================================================ */
 
 void queueInit(Queue *q) {
     q->front = 0;

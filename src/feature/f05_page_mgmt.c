@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <string.h>
 
-/* ============================================================
- * f05_page_mgmt.c — F05 Page Management (Add, Edit, Delete)
- * ============================================================ */
 
 #define INPUT_LINE_MAX 512
 
@@ -49,9 +46,7 @@ static int readMultilineContent(char *buf, int maxLen) {
     return len;
 }
 
-/* ============================================================
- * add_page <url>
- * ============================================================ */
+
 void featureAddPage(Browser *b, const char *url) {
     /* Validasi URL format */
     if (!validateURL(url)) {
@@ -121,9 +116,7 @@ void featureAddPage(Browser *b, const char *url) {
     printf("Halaman %s berhasil ditambahkan!\n", url);
 }
 
-/* ============================================================
- * edit_page <url>
- * ============================================================ */
+
 void featureEditPage(Browser *b, const char *url) {
     WebPage *page = setSearch(&b->db, url);
     if (page == NULL) {
@@ -191,9 +184,7 @@ void featureEditPage(Browser *b, const char *url) {
     printf("Halaman %s berhasil diperbarui!\n", url);
 }
 
-/* ============================================================
- * delete_page <url>
- * ============================================================ */
+
 void featureDeletePage(Browser *b, const char *url) {
     WebPage *page = setSearch(&b->db, url);
     if (page == NULL) {

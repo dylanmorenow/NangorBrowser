@@ -2,9 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-/* ============================================================
- * list.c — Implementasi ADT List (manajemen Tab)
- * ============================================================ */
+
 
 /* Helper: inisialisasi satu tab dengan nama dan counter yang diberikan */
 static void initTab(Tab *t, int counter) {

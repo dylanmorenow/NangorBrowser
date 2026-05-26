@@ -1,22 +1,6 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-/* ============================================================
- * queue.h — ADT Queue untuk Download Manager (F10/S02)
- *
- * KENAPA Queue?
- * Download diproses secara FIFO: yang masuk duluan selesai duluan.
- * Queue adalah struktur data yang paling natural untuk ini.
- *
- * IMPLEMENTASI: Circular Array
- * Lebih efisien daripada linked list untuk ukuran fixed ini karena:
- * - Enqueue dan dequeue O(1)
- * - Tidak perlu alokasi heap (malloc)
- * - Ukuran max sudah diketahui (DOWNLOAD_MAX_AMOUNT)
- *
- * Rumus tick: N = floor(len(URL) / 5) + 2
- * ============================================================ */
-
 #include "config.h"
 
 typedef struct {
@@ -67,4 +51,4 @@ void queueDequeue(Queue *q);
 /* Print semua item di antrian (untuk informasi). */
 void queuePrint(Queue *q);
 
-#endif /* QUEUE_H */
+#endif

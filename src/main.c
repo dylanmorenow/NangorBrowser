@@ -35,7 +35,6 @@
 #define BGCYN "\033[46m"
 #define BGGRY "\033[100m"
 
-/* ============================================================ */
 
 static void trimNewline(char *s) {
     int len = (int)strlen(s);
@@ -54,9 +53,7 @@ static char* splitCommand(char *input, char *cmd, int cmdSize) {
     return input;
 }
 
-/* ============================================================
- * Banner
- * ============================================================ */
+
 static void printBanner(void) {
     printf("\n");
     printf(BLU BLD "  \xe2\x95\x94\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x90\xe2\x95\x97\n" RST);
@@ -76,10 +73,7 @@ static void printBanner(void) {
     printf("  Ketik " YLW BLD "help" RST " untuk melihat daftar perintah.\n\n");
 }
 
-/* ============================================================
- * Help - aligned two-column layout
- * Inner: 56 display cols (2 margin + 22 cmd col + 32 desc col)
- * ============================================================ */
+
 static void printHelp(void) {
     printf("\n");
     /* top border ─────────────────────────────────────── */
@@ -166,9 +160,7 @@ static void printHelp(void) {
         "\xe2\x94\x98\n" RST);
     printf("\n");
 }
-/* ============================================================
- * Prompt
- * ============================================================ */
+
 static void printPrompt(Browser *b) {
     Tab *cur = listGetCurrentTab(&b->tabs);
     printf(BLU "\xe2\x94\x8c\xe2\x94\x80[" RST BLD "%s" RST BLU "]\n" RST, cur->name);
@@ -334,9 +326,6 @@ static int handleCommand(Browser *b, char *input) {
     return 0;
 }
 
-/* ============================================================
- * Main
- * ============================================================ */
 int main(void) {
     Browser browser;
     char input[INPUT_MAX];

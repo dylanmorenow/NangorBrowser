@@ -1,27 +1,6 @@
 #ifndef MAP_H
 #define MAP_H
 
-/* ============================================================
- * map.h — ADT Map untuk Cache URL→Konten (F04)
- *
- * KENAPA Map?
- * Cache adalah key-value store: key=URL, value=konten halaman.
- * Map adalah abstraksi yang paling tepat untuk ini.
- *
- * IMPLEMENTASI: Array of key-value pairs + FIFO eviction
- * - Array linear, ukuran CACHE_MAX_AMOUNT
- * - FIFO: yang masuk duluan, keluar duluan kalau cache penuh
- * - FIFO dipilih karena simple dan cukup efektif untuk browser
- *   (tidak perlu lacak "last used time" seperti LRU)
- *
- * FIFO tracking: pakai field `insertOrder` (counter yang terus naik).
- * Saat evict, cari entry dengan insertOrder terkecil.
- *
- * KENAPA tidak pakai hash table?
- * - Tidak boleh library eksternal
- * - Ukuran cache kecil (max 10), linear scan O(n) masih sangat cepat
- * - Implementasi hash table dari scratch lebih kompleks dan tidak perlu
- * ============================================================ */
 
 #include "config.h"
 
@@ -76,4 +55,4 @@ int mapFindIndex(Map *m, const char *url);
  * Return indeks entry yang akan di-evict. */
 int mapFindFIFOVictim(Map *m);
 
-#endif /* MAP_H */
+#endif 

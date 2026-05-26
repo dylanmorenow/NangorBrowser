@@ -1,14 +1,6 @@
 #ifndef VALIDATOR_H
 #define VALIDATOR_H
 
-/* ============================================================
- * validator.h — Validasi input
- *
- * E01: Validasi format URL — manual tanpa regex library
- *      Regex target: ^(?!-)[A-Za-z0-9-]{1,63}(?<!-)(\.[A-Za-z]{2,})+$
- *
- * E02: Validasi bilangan bulat positif 1-999999
- * ============================================================ */
 
 #include "config.h"
 
@@ -21,4 +13,4 @@ bool validateURL(const char *url);
  * Return TRUE jika valid, FALSE jika tidak. */
 bool validatePositiveInt(const char *str, int *result);
 
-#endif /* VALIDATOR_H */
+#endif 

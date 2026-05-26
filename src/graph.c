@@ -1,9 +1,7 @@
 #include "graph.h"
 #include <stdio.h>
 
-/* ============================================================
- * graph.c — Implementasi ADT Graph (adjacency list)
- * ============================================================ */
+
 
 void graphInit(Graph *g) {
     int i;

@@ -3,9 +3,6 @@
 #include "feature/f_history.h"
 #include <stdio.h>
 
-/* ============================================================
- * f09_webgraph.c — F09 openlinked + B02 History recording
- * ============================================================ */
 
 void featureOpenLinked(Browser *b, int index) {
     Tab *cur = listGetCurrentTab(&b->tabs);

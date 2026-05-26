@@ -1,12 +1,7 @@
 #ifndef F_HISTORY_H
 #define F_HISTORY_H
 
-/* ============================================================
- * f_history.h — B02 Global History
- *
- * Priority queue berdasarkan waktu akses terakhir.
- * Struct GlobalHistory sudah didefinisikan di browser.h.
- * ============================================================ */
+
 
 #include "browser.h"
 

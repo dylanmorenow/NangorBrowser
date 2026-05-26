@@ -1,24 +1,6 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
-/* ============================================================
- * linked_list.h — ADT Linked List (singly linked)
- *
- * KENAPA Linked List?
- * Dipakai sebagai adjacency list di ADT Graph.
- * Setiap node graph punya linked list yang berisi daftar
- * tetangganya (linked pages).
- *
- * Pakai linked list (bukan array) di sini karena:
- * - Jumlah linked pages per halaman tidak diketahui di awal
- * - Insert O(1) di head (tidak perlu realloc)
- * - Traverse O(n) sudah cukup untuk use-case ini
- *
- * Setiap node menyimpan:
- * - targetId  : ID halaman tujuan (foreign key ke WebPage.id)
- * - targetUrl : URL halaman tujuan (cache lokal supaya tidak
- *               perlu lookup ke Set setiap kali tampil)
- * ============================================================ */
 
 #include "config.h"
 
@@ -67,4 +49,4 @@ void llPrint(LinkedList *ll);
 /* Hapus semua node dan bebaskan memori. */
 void llClear(LinkedList *ll);
 
-#endif /* LINKED_LIST_H */
+#endif 
